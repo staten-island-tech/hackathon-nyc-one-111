@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NYC BIN Lookup</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🏙️ NYC BIN Lookup</h1>
+        <form method="POST">
+            <input type="text" name="bin" placeholder="Enter BIN (e.g., 1088725)" value="{{ bin_input }}" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if data %}
+            <div class="result">
+                <h2>Building Information for BIN {{ data.bin }}</h2>
+                <ul>
+                    {% for key, value in data.items() %}
+                        <li><strong>{{ key.replace('_', ' ').title() }}:</strong> {{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
